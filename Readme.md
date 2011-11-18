@@ -6,6 +6,7 @@ because I can't find any useable chrome extension that could set the F1 button a
 ###Changelog
 ######v0.00.02-20111118
 - Add AutoHotkey version
+
 ######v0.00.01-20111025
 - initial version.
 - no-GUI.
