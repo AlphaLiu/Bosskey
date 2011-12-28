@@ -18,13 +18,37 @@ WEnd
 
 Func HideOrShow()
 	$title = "Google Chrome"		;Chrome title
-	$state = WinGetState($title)	;Get states of Chrome
-	;MsgBox(0, "", $state)
+
+	$ChromeList = WinList($title)
+	for $i = 1 to $ChromeList[0][0]
+		if IsVisible($ChromeList[$i][1]) == 0 Then
+			$ShowOrHide = 1
+		Else	
+			$ShowOrHide = 0
+			ExitLoop
+		EndIf
+	Next
+	if $ShowOrHide == 1 Then
+		for $i = 1 to $ChromeList[0][0]
+			WinSetState($ChromeList[$i][1], "", @SW_SHOW)
+		Next
+		WinActivate($ChromeList[$ChromeList[0][0]][1])
+	Else
+		for $i = 1 to $ChromeList[0][0]
+			WinSetState($ChromeList[$i][1], "", @SW_MINIMIZE)
+			WinSetState($ChromeList[$i][1], "", @SW_HIDE)
+		Next
+	EndIf 
+
+EndFunc
+
+Func IsVisible($handle)
+	$state = WinGetState($handle)	;Get states of window 
+	;if BitAND($state, 16) Or Not(BitAND($state, 8)) Or Not(BitAND($state, 2)) Then	
 	if BitAND($state, 16) Or Not(BitAND($state, 8)) Or Not(BitAND($state, 2)) Then	
-		;Minimized, not activate, not visiabled Window should show in the foreground
-		WinSetState($title, "", @SW_SHOW);
-		WinActivate($title)
-	Else	
-		WinSetState($title, "", @SW_HIDE);\
+	;Minimized, not activate, not visiabled Window should show in the foreground
+		return 0
+	Else
+		return 1
 	EndIf
 EndFunc
