@@ -11,19 +11,43 @@ return
 HideOrShowWindow()
 {
 	strWinTitle = Google Chrome		;Chrome Title
-	ifWinExist %strWinTitle%
+
+	WinGet arrWinList, List, %strWinTitle%
+	if %arrWinList% != 0
 	{
-		IfWinNotActive
+		bShowOrHide = 0
+		Loop, %arrWinList%
 		{
-			WinShow
-			WinActivate 
+			curWin := arrWinList%A_Index%
+
+			IfWinNotActive ahk_id%curWin%
+			{
+				bShowOrHide = 1
+			}
+			else
+			{
+				bShowOrHide = 0
+				break
+			}		
+		}
+		if bShowOrHide = 1
+		{
+			Loop, %arrWinList%
+			{
+				curWin := arrWinList%A_Index%
+				WinShow ahk_id%curWin%
+			}
+			WinActivate ahk_id%arrWinList1% 
 		}
 		else
 		{
-			Send, !{esc}			; This way sends the active window (which is
-									; about to be hidden) to the back of the stack.
-			WinHide
-		}		
+			Loop, %arrWinList%
+			{
+				curWin := arrWinList%A_Index%
+				WinMinimize ahk_id%curWin%
+				WinHide ahk_id%curWin%
+			}
+		}
 	}
 	else
 	{

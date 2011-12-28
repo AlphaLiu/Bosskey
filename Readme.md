@@ -4,6 +4,9 @@ to hide or show the Chrome in **Windows (XP or 7)**,
 because I can't find any useable chrome extension that could set the F1 button as Bosskey.
 ***
 ###Changelog
+######v0.00.03-20111228
+- Add AutoIt3 version support multiple Windows
+- Add AutoHotkey version support multiple Windows 
 ######v0.00.02-20111118
 - Add AutoHotkey version
 
